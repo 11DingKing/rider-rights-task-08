@@ -27,5 +27,12 @@ func EscalationDepartmentName(baseDept string, level int) string {
 }
 
 func NextEscalationDeadline(current, now time.Time, extension time.Duration) time.Time {
-	return now.Add(extension)
+	base := current
+	if base.IsZero() {
+		base = now
+	}
+	if extension <= 0 {
+		return base
+	}
+	return base.Add(extension)
 }
