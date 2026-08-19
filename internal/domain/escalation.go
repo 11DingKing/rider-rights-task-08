@@ -25,3 +25,7 @@ func EscalationDepartmentName(baseDept string, level int) string {
 	}
 	return fmt.Sprintf("%s-supervisor-l%d", baseDept, level)
 }
+
+func NextEscalationDeadline(current, now time.Time, extension time.Duration) time.Time {
+	return now.Add(extension)
+}

@@ -53,7 +53,7 @@ func (s *EscalationService) escalateItem(ctx context.Context, item *domain.Right
 		return nil, fmt.Errorf("item %s at level %d: %w", item.ID, item.EscalationLevel, domain.ErrMaxEscalationReached)
 	}
 	newLead := domain.EscalationDepartmentName(item.LeadDepartment, newLevel)
-	newDeadline := now.Add(s.deadlineExtension)
+	newDeadline := domain.NextEscalationDeadline(item.Deadline, now, s.deadlineExtension)
 
 	esc := &domain.Escalation{
 		ID:          uuid.NewString(),
